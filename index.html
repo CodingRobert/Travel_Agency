@@ -49,22 +49,67 @@
       color: #f2c14e;
     }
 
+    /* ✅ HERO with overlay text and horizontal scroll videos */
     .hero {
+      position: relative; /* NEW */
       height: 100vh;
-      background: url('hero_bg.jpg') no-repeat center center/cover;
+      padding-top: 5rem;
       display: flex;
       align-items: center;
       justify-content: center;
       text-align: center;
-      padding-top: 5rem;
+      overflow: hidden; /* NEW */
     }
 
-    .hero h2 {
+    .hero-text {
+      position: absolute; /* NEW */
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      z-index: 2;
+      background: rgba(0, 0, 0, 0.5); /* NEW */
+      padding: 1.5rem 3rem;
+      border-radius: 10px;
+    }
+
+    .hero-text h2 {
       font-size: 3rem;
       color: white;
-      background: rgba(0,0,0,0.5);
-      padding: 1rem 2rem;
+    }
+
+    /* ✅ Horizontal scrolling video box in hero */
+    .hero-videos {
+      display: flex;
+      gap: 2rem;
+      overflow-x: auto;
+      scroll-snap-type: x mandatory;
+      padding: 1rem;
+      -webkit-overflow-scrolling: touch;
+      z-index: 1;
+    }
+
+    .hero-videos::-webkit-scrollbar {
+      height: 8px;
+    }
+
+    .hero-videos::-webkit-scrollbar-thumb {
+      background-color: #666;
       border-radius: 10px;
+    }
+
+    .video-item {
+      min-width: 80%;
+      flex: 0 0 auto;
+      scroll-snap-align: center;
+      border-radius: 15px;
+      overflow: hidden;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.5);
+    }
+
+    .video-item video {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
     }
 
     .section {
@@ -79,40 +124,18 @@
       margin-bottom: 3rem;
     }
 
-    .video-gallery {
-  display: flex; /* CHANGED: from column to row layout */
-  gap: 2rem; /* NEW: space between videos */
-  overflow-x: auto; /* NEW: enables horizontal scrolling */
-  scroll-snap-type: x mandatory; /* NEW: enables snap scrolling */
-  padding-bottom: 1rem; /* NEW: spacing at the bottom */
-  scroll-padding: 1rem; /* NEW: makes snap spacing nicer */
-  -webkit-overflow-scrolling: touch; /* NEW: smooth scrolling on iOS */
-}
+    .footer {
+      background-color: #111;
+      text-align: center;
+      padding: 3rem 2rem;
+      font-size: 0.9rem;
+      color: #aaa;
+    }
 
-.video-gallery::-webkit-scrollbar {
-  height: 8px; /* NEW: custom scrollbar height */
-}
-
-.video-gallery::-webkit-scrollbar-thumb {
-  background-color: #666; /* NEW: scrollbar thumb color */
-  border-radius: 10px; /* NEW: scrollbar rounded edges */
-}
-
-.video-item {
-  min-width: 80%; /* CHANGED: defines horizontal width for scrolling */
-  flex: 0 0 auto; /* NEW: prevents shrinking/growing */
-  scroll-snap-align: center; /* NEW: enables centered snap */
-  border-radius: 15px; /* existing */
-  overflow: hidden; /* existing */
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5); /* existing */
-}
-
-@media (min-width: 768px) {
-  .video-item {
-    min-width: 60%; /* CHANGED: smaller width on wider screens */
-  }
-}
-
+    @media (min-width: 768px) {
+      .video-item {
+        min-width: 60%;
+      }
     }
   </style>
 </head>
@@ -126,77 +149,36 @@
     </nav>
   </header>
 
+  <!-- ✅ HERO SECTION with video scroll and overlay text -->
   <section class="hero" id="home">
-    <h2>Book. Travel. Live.</h2>
+    <div class="hero-text"> <!-- NEW -->
+      <h2>Book. Travel. Live.</h2> <!-- MOVED inside -->
+    </div>
+    <div class="hero-videos"> <!-- NEW -->
+      <div class="video-item">
+        <video autoplay muted loop playsinline>
+          <source src="video1.mp4" type="video/mp4" />
+        </video>
+      </div>
+      <div class="video-item">
+        <video autoplay muted loop playsinline>
+          <source src="video2.mp4" type="video/mp4" />
+        </video>
+      </div>
+      <div class="video-item">
+        <video autoplay muted loop playsinline>
+          <source src="video3.mp4" type="video/mp4" />
+        </video>
+      </div>
+    </div>
   </section>
-<section class="section" id="videos">
-  <h2>Real Natural Expeditions</h2>
-  <div class="video-gallery">
-    
-    <!-- Video 1 -->
-    <div class="video-item">
-      <video autoplay muted loop playsinline>
-        <source src="ice_1.mp4" type="video/mp4">
-        Your browser does not support the video tag.
-      </video>
-    </div>
 
-    <!-- Video 2 -->
-    <div class="video-item">
-      <video autoplay muted loop playsinline>
-        <source src="ice_2.mp4" type="video/mp4">
-        Your browser does not support the video tag.
-      </video>
-    </div>
-
-    <!-- Video 3 -->
-    <div class="video-item">
-      <video autoplay muted loop playsinline>
-        <source src="ice_3.mp4" type="video/mp4">
-        Your browser does not support the video tag.
-      </video>
-    </div>
-<div class="video-item">
-      <video autoplay muted loop playsinline>
-        <source src="village.mp4" type="video/mp4">
-        Your browser does not support the video tag.
-      </video>
-    </div>
-    <!-- OPTIONAL: Add more videos as needed -->
-    <!--
-    <div class="video-item">
-      <video autoplay muted loop playsinline>
-        <source src="video4.mp4" type="video/mp4">
-        Your browser does not support the video tag.
-      </video>
-    </div>
-    -->
-
-  </div>
-</section>
-
+  <!-- ✅ SECTION now just text -->
   <section class="section" id="videos">
     <h2>Real Natural Expeditions</h2>
-    <div class="video-gallery">
-      <div class="video-item">
-        <video autoplay muted loop playsinline>
-          <source src="video1.mp4" type="video/mp4">
-          Your browser does not support the video tag.
-        </video>
-      </div>
-      <div class="video-item">
-        <video autoplay muted loop playsinline>
-          <source src="video2.mp4" type="video/mp4">
-          Your browser does not support the video tag.
-        </video>
-      </div>
-      <div class="video-item">
-        <video autoplay muted loop playsinline>
-          <source src="video3.mp4" type="video/mp4">
-          Your browser does not support the video tag.
-        </video>
-      </div>
-    </div>
+    <p style="text-align: center; font-size: 1.2rem;">
+      Discover new places with immersive video previews. Your adventure starts here.
+    </p>
   </section>
 
   <section class="section" id="contact">
