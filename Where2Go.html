@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Restaurant Experience</title>
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body, html {
+      font-family: 'Helvetica Neue', sans-serif;
+      height: 100%;
+      scroll-behavior: smooth;
+      background-color: #000;
+      color: #fff;
+    }
+
+    header {
+      background: rgba(0, 0, 0, 0.85);
+      padding: 1rem 2rem;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      z-index: 1000;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    header h1 {
+      font-size: 1.8rem;
+      letter-spacing: 2px;
+    }
+
+    nav a {
+      color: white;
+      margin-left: 2rem;
+      text-decoration: none;
+      font-weight: bold;
+      transition: color 0.3s;
+    }
+
+    nav a:hover {
+      color: #f2c14e;
+    }
+
+    .hero {
+      height: 100vh;
+      background: url('hero_bg.jpg') no-repeat center center/cover;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding-top: 5rem;
+    }
+
+    .hero h2 {
+      font-size: 3rem;
+      color: white;
+      background: rgba(0,0,0,0.5);
+      padding: 1rem 2rem;
+      border-radius: 10px;
+    }
+
+    .section {
+      padding: 6rem 2rem;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .section h2 {
+      font-size: 2.5rem;
+      text-align: center;
+      margin-bottom: 3rem;
+    }
+
+    .video-gallery {
+      display: flex;
+      flex-direction: column;
+      gap: 4rem;
+    }
+
+    .video-item {
+      width: 100%;
+      aspect-ratio: 16/9;
+      position: relative;
+      overflow: hidden;
+      border-radius: 15px;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.5);
+    }
+
+    .video-item video {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .footer {
+      background-color: #111;
+      text-align: center;
+      padding: 3rem 2rem;
+      font-size: 0.9rem;
+      color: #aaa;
+    }
+
+    @media (min-width: 768px) {
+      .video-gallery {
+        flex-direction: row;
+        justify-content: space-between;
+      }
+
+      .video-item {
+        width: 32%;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Modern Eats</h1>
+    <nav>
+      <a href="#home">Home</a>
+      <a href="#videos">Experience</a>
+      <a href="#contact">Contact</a>
+    </nav>
+  </header>
+
+  <section class="hero" id="home">
+    <h2>Where Culinary Art Meets Atmosphere</h2>
+  </section>
+
+  <section class="section" id="videos">
+    <h2>Immersive Dining</h2>
+    <div class="video-gallery">
+      <div class="video-item">
+        <video autoplay muted loop playsinline>
+          <source src="video1.mp4" type="video/mp4">
+          Your browser does not support the video tag.
+        </video>
+      </div>
+      <div class="video-item">
+        <video autoplay muted loop playsinline>
+          <source src="video2.mp4" type="video/mp4">
+          Your browser does not support the video tag.
+        </video>
+      </div>
+      <div class="video-item">
+        <video autoplay muted loop playsinline>
+          <source src="video3.mp4" type="video/mp4">
+          Your browser does not support the video tag.
+        </video>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="contact">
+    <h2>Contact Us</h2>
+    <p style="text-align: center; font-size: 1.2rem;">
+      📍 123 Modern Avenue, CityName<br />
+      📞 +123 456 7890<br />
+      📧 hello@moderneats.com
+    </p>
+  </section>
+
+  <footer class="footer">
+    &copy; 2025 Modern Eats. All rights reserved.
+  </footer>
+</body>
+</html>
