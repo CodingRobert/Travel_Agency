@@ -80,43 +80,39 @@
     }
 
     .video-gallery {
-      display: flex;
-      flex-direction: column;
-      gap: 4rem;
-    }
+  display: flex; /* CHANGED: from column to row layout */
+  gap: 2rem; /* NEW: space between videos */
+  overflow-x: auto; /* NEW: enables horizontal scrolling */
+  scroll-snap-type: x mandatory; /* NEW: enables snap scrolling */
+  padding-bottom: 1rem; /* NEW: spacing at the bottom */
+  scroll-padding: 1rem; /* NEW: makes snap spacing nicer */
+  -webkit-overflow-scrolling: touch; /* NEW: smooth scrolling on iOS */
+}
 
-    .video-item {
-      width: 100%;
-      aspect-ratio: 16/9;
-      position: relative;
-      overflow: hidden;
-      border-radius: 15px;
-      box-shadow: 0 4px 20px rgba(0,0,0,0.5);
-    }
+.video-gallery::-webkit-scrollbar {
+  height: 8px; /* NEW: custom scrollbar height */
+}
 
-    .video-item video {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-    }
+.video-gallery::-webkit-scrollbar-thumb {
+  background-color: #666; /* NEW: scrollbar thumb color */
+  border-radius: 10px; /* NEW: scrollbar rounded edges */
+}
 
-    .footer {
-      background-color: #111;
-      text-align: center;
-      padding: 3rem 2rem;
-      font-size: 0.9rem;
-      color: #aaa;
-    }
+.video-item {
+  min-width: 80%; /* CHANGED: defines horizontal width for scrolling */
+  flex: 0 0 auto; /* NEW: prevents shrinking/growing */
+  scroll-snap-align: center; /* NEW: enables centered snap */
+  border-radius: 15px; /* existing */
+  overflow: hidden; /* existing */
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5); /* existing */
+}
 
-    @media (min-width: 768px) {
-      .video-gallery {
-        flex-direction: row;
-        justify-content: space-between;
-      }
+@media (min-width: 768px) {
+  .video-item {
+    min-width: 60%; /* CHANGED: smaller width on wider screens */
+  }
+}
 
-      .video-item {
-        width: 32%;
-      }
     }
   </style>
 </head>
