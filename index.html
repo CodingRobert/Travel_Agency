@@ -51,12 +51,13 @@
 
     .hero {
       height: 100vh;
-      background: url('hero_bg.jpg') no-repeat center center/cover;
+      position: relative;
       display: flex;
       align-items: center;
       justify-content: center;
       text-align: center;
       padding-top: 5rem;
+      background-color: #000;
     }
 
     .hero h2 {
@@ -65,6 +66,39 @@
       background: rgba(0,0,0,0.5);
       padding: 1rem 2rem;
       border-radius: 10px;
+      z-index: 2;
+      position: relative;
+    }
+
+    /* ✅ NEW: Scrollable video section inside hero */
+    .hero-videos {
+      position: absolute;
+      bottom: 0;
+      width: 100%;
+      display: flex;
+      gap: 1.5rem;
+      overflow-x: auto;
+      scroll-snap-type: x mandatory;
+      padding: 1rem 2rem;
+      -webkit-overflow-scrolling: touch;
+      z-index: 1;
+      max-height: 400px; /* ✅ Limit height */
+    }
+
+    .video-item {
+      min-width: 60%; /* ✅ Smaller width */
+      flex: 0 0 auto;
+      scroll-snap-align: center;
+      border-radius: 15px;
+      overflow: hidden;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.5);
+      height: 100%; /* ✅ Ensure height fits the max-height */
+    }
+
+    .video-item video {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
     }
 
     .section {
@@ -79,40 +113,18 @@
       margin-bottom: 3rem;
     }
 
-    .video-gallery {
-  display: flex; /* CHANGED: from column to row layout */
-  gap: 2rem; /* NEW: space between videos */
-  overflow-x: auto; /* NEW: enables horizontal scrolling */
-  scroll-snap-type: x mandatory; /* NEW: enables snap scrolling */
-  padding-bottom: 1rem; /* NEW: spacing at the bottom */
-  scroll-padding: 1rem; /* NEW: makes snap spacing nicer */
-  -webkit-overflow-scrolling: touch; /* NEW: smooth scrolling on iOS */
-}
+    .footer {
+      background-color: #111;
+      text-align: center;
+      padding: 3rem 2rem;
+      font-size: 0.9rem;
+      color: #aaa;
+    }
 
-.video-gallery::-webkit-scrollbar {
-  height: 8px; /* NEW: custom scrollbar height */
-}
-
-.video-gallery::-webkit-scrollbar-thumb {
-  background-color: #666; /* NEW: scrollbar thumb color */
-  border-radius: 10px; /* NEW: scrollbar rounded edges */
-}
-
-.video-item {
-  min-width: 80%; /* CHANGED: defines horizontal width for scrolling */
-  flex: 0 0 auto; /* NEW: prevents shrinking/growing */
-  scroll-snap-align: center; /* NEW: enables centered snap */
-  border-radius: 15px; /* existing */
-  overflow: hidden; /* existing */
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5); /* existing */
-}
-
-@media (min-width: 768px) {
-  .video-item {
-    min-width: 60%; /* CHANGED: smaller width on wider screens */
-  }
-}
-
+    @media (min-width: 768px) {
+      .video-item {
+        min-width: 30%; /* ✅ More compact on wider screens */
+      }
     }
   </style>
 </head>
@@ -128,56 +140,8 @@
 
   <section class="hero" id="home">
     <h2>Book. Travel. Live.</h2>
-  </section>
-<section class="section" id="videos">
-  <h2>Real Natural Expeditions</h2>
-  <div class="video-gallery">
-    
-    <!-- Video 1 -->
-    <div class="video-item">
-      <video autoplay muted loop playsinline>
-        <source src="ice_1.mp4" type="video/mp4">
-        Your browser does not support the video tag.
-      </video>
-    </div>
-
-    <!-- Video 2 -->
-    <div class="video-item">
-      <video autoplay muted loop playsinline>
-        <source src="ice_2.mp4" type="video/mp4">
-        Your browser does not support the video tag.
-      </video>
-    </div>
-
-    <!-- Video 3 -->
-    <div class="video-item">
-      <video autoplay muted loop playsinline>
-        <source src="ice_3.mp4" type="video/mp4">
-        Your browser does not support the video tag.
-      </video>
-    </div>
-<div class="video-item">
-      <video autoplay muted loop playsinline>
-        <source src="village.mp4" type="video/mp4">
-        Your browser does not support the video tag.
-      </video>
-    </div>
-    <!-- OPTIONAL: Add more videos as needed -->
-    <!--
-    <div class="video-item">
-      <video autoplay muted loop playsinline>
-        <source src="video4.mp4" type="video/mp4">
-        Your browser does not support the video tag.
-      </video>
-    </div>
-    -->
-
-  </div>
-</section>
-
-  <section class="section" id="videos">
-    <h2>Real Natural Expeditions</h2>
-    <div class="video-gallery">
+    <!-- ✅ Scrollable Video Section -->
+    <div class="hero-videos">
       <div class="video-item">
         <video autoplay muted loop playsinline>
           <source src="video1.mp4" type="video/mp4">
@@ -199,12 +163,19 @@
     </div>
   </section>
 
+  <section class="section" id="videos">
+    <!-- ✅ Removed duplicate "Real Natural Expeditions" heading -->
+    <p style="text-align: center; font-size: 1.2rem;">
+      Discover new places with immersive video previews. Your adventure starts here.
+    </p>
+  </section>
+
   <section class="section" id="contact">
     <h2>Contact Us</h2>
     <p style="text-align: center; font-size: 1.2rem;">
       📍 123 Modern Avenue, CityName<br />
       📞 +123 456 7890<br />
-      📧 info@Where2Go.com
+      📧 hello@moderneats.com
     </p>
   </section>
 
