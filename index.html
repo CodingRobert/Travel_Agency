@@ -49,18 +49,20 @@
       color: #f2c14e;
     }
 
+    /* HERO SECTION */
     .hero {
       position: relative;
       height: 100vh;
       overflow: hidden;
+      padding-top: 5rem;
       display: flex;
       align-items: center;
       justify-content: center;
       text-align: center;
-      padding-top: 5rem;
       color: white;
     }
 
+    /* Background video fills hero */
     .hero video {
       position: absolute;
       top: 0;
@@ -68,16 +70,19 @@
       width: 100%;
       height: 100%;
       object-fit: cover;
-      z-index: -1;
+      z-index: 0;
     }
 
+    /* Text overlays video */
     .hero h2 {
+      position: relative;
+      z-index: 1;
       font-size: 3rem;
-      background: rgba(0,0,0,0.5);
+      background: rgba(0, 0, 0, 0.5);
       padding: 1rem 2rem;
       border-radius: 10px;
-      z-index: 1;
-      position: relative;
+      max-width: 90%;
+      margin: 0 auto;
     }
 
     .section {
@@ -97,7 +102,7 @@
       position: relative;
       max-width: 900px;
       margin: 0 auto;
-      overflow: hidden;
+      overflow: hidden;  /* Hide scrollbar */
       border-radius: 15px;
       box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
     }
@@ -106,13 +111,6 @@
       display: flex;
       transition: transform 0.5s ease-in-out;
       width: 100%;
-      scroll-behavior: smooth;
-      /* Hide scrollbar for all browsers */
-      scrollbar-width: none; /* Firefox */
-      -ms-overflow-style: none;  /* IE 10+ */
-    }
-    .video-items::-webkit-scrollbar {
-      display: none; /* Safari and Chrome */
     }
 
     .video-item {
@@ -149,33 +147,11 @@
     .dot.active {
       background-color: #f2c14e;
     }
-
-    /* Footer styling */
-    .footer {
-      text-align: center;
-      padding: 1.5rem 0;
-      background: rgba(0,0,0,0.85);
-      color: #fff;
-      margin-top: 3rem;
-    }
-
-    /* Responsive adjustments */
-    @media (max-width: 600px) {
-      .hero h2 {
-        font-size: 2rem;
-        padding: 0.8rem 1.5rem;
-      }
-
-      .video-item video {
-        height: 250px;
-      }
-    }
   </style>
 </head>
 <body>
-
   <header>
-    <h1>Where 2 Go</h1>
+    <h1>Where2Go</h1>
     <nav>
       <a href="#home">Home</a>
       <a href="#videos">Experiences</a>
@@ -196,25 +172,25 @@
     <div class="video-gallery">
       <div class="video-items">
         <div class="video-item">
-          <video muted loop playsinline>
+          <video autoplay muted loop playsinline>
             <source src="ice_1.mp4" type="video/mp4" />
             Your browser does not support the video tag.
           </video>
         </div>
         <div class="video-item">
-          <video muted loop playsinline>
+          <video autoplay muted loop playsinline>
             <source src="ice_2.mp4" type="video/mp4" />
             Your browser does not support the video tag.
           </video>
         </div>
         <div class="video-item">
-          <video muted loop playsinline>
+          <video autoplay muted loop playsinline>
             <source src="ice_3.mp4" type="video/mp4" />
             Your browser does not support the video tag.
           </video>
         </div>        
         <div class="video-item">
-          <video id="last-video" muted loop playsinline>
+          <video id="last-video" autoplay muted loop playsinline>
             <source src="village.mp4" type="video/mp4" />
             Your browser does not support the video tag.
           </video>
@@ -243,21 +219,20 @@
   </footer>
 
   <script>
-    const videoItemsContainer = document.querySelector('.video-items');
-    const videoItems = document.querySelectorAll('.video-item video');
+    const videoItems = document.querySelector('.video-items');
     const dots = document.querySelectorAll('.dot');
+    const videos = document.querySelectorAll('.video-item video');
     let currentIndex = 0;
 
     function updateCarousel(index) {
       const offset = index * -100;
-      videoItemsContainer.style.transform = `translateX(${offset}%)`;
+      videoItems.style.transform = `translateX(${offset}%)`;
 
       dots.forEach(dot => dot.classList.remove('active'));
       dots[index].classList.add('active');
 
-      // Play current video, pause others
-      videoItems.forEach((video, i) => {
-        if(i === index){
+      videos.forEach((video, i) => {
+        if (i === index) {
           video.play();
         } else {
           video.pause();
@@ -275,20 +250,12 @@
       });
     });
 
-    // Initialize: play first video only
-    window.addEventListener('load', () => {
-      updateCarousel(0);
-      // Scroll to top to ensure hero is visible on load
-      window.scrollTo(0,0);
-    });
+    // Initialize carousel
+    updateCarousel(0);
 
-    // Optional: Enable horizontal scrolling with touchpad/mouse wheel on video gallery
-    videoItemsContainer.addEventListener('wheel', (e) => {
-      if (e.deltaY !== 0) {
-        e.preventDefault();
-        videoItemsContainer.scrollLeft += e.deltaY;
-      }
-    });
+    // Slow motion for last video
+    const lastVideo = document.getElementById('last-video');
+    if (lastVideo) lastVideo.playbackRate = 0.9;
   </script>
 </body>
 </html>
