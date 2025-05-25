@@ -49,22 +49,40 @@
       color: #f2c14e;
     }
 
+    /* HERO SECTION */
     .hero {
+      position: relative;
       height: 100vh;
-      background: url('hero_bg.jpg') no-repeat center center/cover;
+      overflow: hidden;
+      padding-top: 5rem;
       display: flex;
       align-items: center;
       justify-content: center;
       text-align: center;
-      padding-top: 5rem;
+      color: white;
     }
 
+    /* Background video fills hero */
+    .hero video {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      z-index: 0;
+    }
+
+    /* Text overlays video */
     .hero h2 {
+      position: relative;
+      z-index: 1;
       font-size: 3rem;
-      color: white;
-      background: rgba(0,0,0,0.5);
+      background: rgba(0, 0, 0, 0.5);
       padding: 1rem 2rem;
       border-radius: 10px;
+      max-width: 90%;
+      margin: 0 auto;
     }
 
     .section {
@@ -142,6 +160,10 @@
   </header>
 
   <section class="hero" id="home">
+    <video autoplay muted loop playsinline>
+      <source src="main_video.mp4" type="video/mp4" />
+      Your browser does not support the video tag.
+    </video>
     <h2>Book. Travel. Live.</h2>
   </section>
 
@@ -214,7 +236,7 @@
           video.play();
         } else {
           video.pause();
-          video.currentTime = 0; // rewind paused videos
+          video.currentTime = 0;
         }
       });
 
@@ -228,7 +250,7 @@
       });
     });
 
-    // Initialize carousel: play only first video
+    // Initialize carousel
     updateCarousel(0);
 
     // Slow motion for last video
