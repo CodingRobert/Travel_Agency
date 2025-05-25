@@ -79,40 +79,55 @@
       margin-bottom: 3rem;
     }
 
+    /* Carousel styles */
     .video-gallery {
-      display: flex; /* from column to row layout */
-      gap: 2rem; /* space between videos */
-      overflow-x: auto; /* enables horizontal scrolling */
-      scroll-snap-type: x mandatory; /* enables snap scrolling */
-      padding-bottom: 1rem; /* spacing at the bottom */
-      scroll-padding: 1rem; /* makes snap spacing nicer */
-      -webkit-overflow-scrolling: touch; /* smooth scrolling on iOS */
+      position: relative;
+      max-width: 900px;
+      margin: 0 auto;
+      overflow: hidden;
+      border-radius: 15px;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
     }
 
-    .video-gallery::-webkit-scrollbar {
-      height: 8px; /* custom scrollbar height */
-    }
-
-    .video-gallery::-webkit-scrollbar-thumb {
-      background-color: #666; /* scrollbar thumb color */
-      border-radius: 10px; /* scrollbar rounded edges */
+    .video-items {
+      display: flex;
+      transition: transform 0.5s ease-in-out;
+      width: 100%;
     }
 
     .video-item {
-      min-width: 800px; /* Smaller horizontal width */
-      max-width: 1000px; /* prevents videos from getting too big */
-      flex: 0 0 auto;
-      scroll-snap-align: center;
-      border-radius: 15px;
+      min-width: 100%;
+      flex-shrink: 0;
       overflow: hidden;
-      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+      border-radius: 15px;
     }
 
     .video-item video {
       width: 100%;
-      height: 400px; /* sets a consistent, smaller height */
+      height: 400px;
       object-fit: cover;
       display: block;
+    }
+
+    /* Dots navigation */
+    .dots {
+      display: flex;
+      justify-content: center;
+      margin-top: 15px;
+      gap: 12px;
+    }
+
+    .dot {
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      background-color: #555;
+      cursor: pointer;
+      transition: background-color 0.3s;
+    }
+
+    .dot.active {
+      background-color: #f2c14e;
     }
   </style>
 </head>
@@ -129,50 +144,42 @@
   <section class="hero" id="home">
     <h2>Book. Travel. Live.</h2>
   </section>
+
   <section class="section" id="videos">
     <h2>Real Natural Expeditions</h2>
     <div class="video-gallery">
-      
-      <!-- Video 1 -->
-      <div class="video-item">
-        <video autoplay muted loop playsinline>
-          <source src="ice_1.mp4" type="video/mp4">
-          Your browser does not support the video tag.
-        </video>
+      <div class="video-items">
+        <div class="video-item">
+          <video autoplay muted loop playsinline>
+            <source src="ice_1.mp4" type="video/mp4" />
+            Your browser does not support the video tag.
+          </video>
+        </div>
+        <div class="video-item">
+          <video autoplay muted loop playsinline>
+            <source src="ice_2.mp4" type="video/mp4" />
+            Your browser does not support the video tag.
+          </video>
+        </div>
+        <div class="video-item">
+          <video autoplay muted loop playsinline>
+            <source src="ice_3.mp4" type="video/mp4" />
+            Your browser does not support the video tag.
+          </video>
+        </div>
+        <div class="video-item">
+          <video autoplay muted loop playsinline>
+            <source src="village.mp4" type="video/mp4" />
+            Your browser does not support the video tag.
+          </video>
+        </div>
       </div>
-
-      <!-- Video 2 -->
-      <div class="video-item">
-        <video autoplay muted loop playsinline>
-          <source src="ice_2.mp4" type="video/mp4">
-          Your browser does not support the video tag.
-        </video>
-      </div>
-
-      <!-- Video 3 -->
-      <div class="video-item">
-        <video autoplay muted loop playsinline>
-          <source src="ice_3.mp4" type="video/mp4">
-          Your browser does not support the video tag.
-        </video>
-      </div>
-
-      <div class="video-item">
-        <video autoplay muted loop playsinline>
-          <source src="village.mp4" type="video/mp4">
-          Your browser does not support the video tag.
-        </video>
-      </div>
-      <!-- OPTIONAL: Add more videos as needed -->
-      <!--
-      <div class="video-item">
-        <video autoplay muted loop playsinline>
-          <source src="video4.mp4" type="video/mp4">
-          Your browser does not support the video tag.
-        </video>
-      </div>
-      -->
-
+    </div>
+    <div class="dots">
+      <div class="dot active" data-index="0"></div>
+      <div class="dot" data-index="1"></div>
+      <div class="dot" data-index="2"></div>
+      <div class="dot" data-index="3"></div>
     </div>
   </section>
 
@@ -188,5 +195,34 @@
   <footer class="footer">
     &copy; 2025 Where2Go. All rights reserved.
   </footer>
+
+  <script>
+    const videoItems = document.querySelector('.video-items');
+    const dots = document.querySelectorAll('.dot');
+    let currentIndex = 0;
+
+    function updateCarousel(index) {
+      const offset = index * -100;
+      videoItems.style.transform = `translateX(${offset}%)`;
+      dots.forEach(dot => dot.classList.remove('active'));
+      dots[index].classList.add('active');
+      currentIndex = index;
+    }
+
+    dots.forEach(dot => {
+      dot.addEventListener('click', () => {
+        const index = parseInt(dot.getAttribute('data-index'));
+        updateCarousel(index);
+      });
+    });
+
+    // Optional: Auto cycle every 5 seconds
+    /*
+    setInterval(() => {
+      let nextIndex = (currentIndex + 1) % dots.length;
+      updateCarousel(nextIndex);
+    }, 5000);
+    */
+  </script>
 </body>
 </html>
