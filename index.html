@@ -84,12 +84,9 @@
       position: relative;
       max-width: 900px;
       margin: 0 auto;
-      overflow: hidden;
+      overflow: hidden;  /* Hide scrollbar */
       border-radius: 15px;
       box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
-      /* Added overflow-x: auto for wheel horizontal scroll */
-      overflow-x: auto;
-      -webkit-overflow-scrolling: touch;
     }
 
     .video-items {
@@ -202,13 +199,25 @@
   <script>
     const videoItems = document.querySelector('.video-items');
     const dots = document.querySelectorAll('.dot');
+    const videos = document.querySelectorAll('.video-item video');
     let currentIndex = 0;
 
     function updateCarousel(index) {
       const offset = index * -100;
       videoItems.style.transform = `translateX(${offset}%)`;
+
       dots.forEach(dot => dot.classList.remove('active'));
       dots[index].classList.add('active');
+
+      videos.forEach((video, i) => {
+        if (i === index) {
+          video.play();
+        } else {
+          video.pause();
+          video.currentTime = 0; // rewind paused videos
+        }
+      });
+
       currentIndex = index;
     }
 
@@ -219,20 +228,12 @@
       });
     });
 
+    // Initialize carousel: play only first video
+    updateCarousel(0);
+
     // Slow motion for last video
     const lastVideo = document.getElementById('last-video');
-    lastVideo.playbackRate = 0.9; // Adjust speed as needed
-
-    // Horizontal scroll with wheel/touchpad
-    const gallery = document.querySelector('.video-gallery');
-    gallery.addEventListener('wheel', (e) => {
-      if (Math.abs(e.deltaX) > Math.abs(e.deltaY)) {
-        // horizontal scroll: prevent vertical scroll and scroll horizontally
-        e.preventDefault();
-        gallery.scrollLeft += e.deltaX;
-      }
-      // else vertical scroll happens naturally (do nothing)
-    }, { passive: false });
+    if (lastVideo) lastVideo.playbackRate = 0.9;
   </script>
 </body>
 </html>
