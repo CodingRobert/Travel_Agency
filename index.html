@@ -80,42 +80,48 @@
     }
 
     .video-gallery {
-  display: flex; /* CHANGED: from column to row layout */
-  gap: 2rem; /* NEW: space between videos */
-  overflow-x: auto; /* NEW: enables horizontal scrolling */
-  scroll-snap-type: x mandatory; /* NEW: enables snap scrolling */
-  padding-bottom: 1rem; /* NEW: spacing at the bottom */
-  scroll-padding: 1rem; /* NEW: makes snap spacing nicer */
-  -webkit-overflow-scrolling: touch; /* NEW: smooth scrolling on iOS */
-}
+      position: relative;
+      width: 100%;
+      max-width: 1000px;
+      margin: 0 auto;
+    }
 
-.video-gallery::-webkit-scrollbar {
-  height: 8px; /* NEW: custom scrollbar height */
-}
+    .video-carousel {
+      display: flex;
+      transition: transform 0.5s ease-in-out;
+      width: 100%;
+    }
 
-.video-gallery::-webkit-scrollbar-thumb {
-  background-color: #666; /* NEW: scrollbar thumb color */
-  border-radius: 10px; /* NEW: scrollbar rounded edges */
-}
+    .video-item {
+      min-width: 100%;
+      transition: transform 0.5s ease-in-out;
+      overflow: hidden;
+    }
 
-.video-item {
-  min-width: 800px; /* REDUCED: Smaller horizontal width */
-  max-width: 1000px; /* NEW: prevents videos from getting too big */
-  flex: 0 0 auto;
-  scroll-snap-align: center;
-  border-radius: 15px;
-  overflow: hidden;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
-}
+    .video-item video {
+      width: 100%;
+      height: 500px;
+      object-fit: cover;
+      display: block;
+    }
 
-.video-item video {
-  width: 100%;
-  height: 400px; /* NEW: sets a consistent, smaller height */
-  object-fit: cover;
-  display: block;
-}
+    .carousel-dots {
+      display: flex;
+      justify-content: center;
+      margin-top: 1rem;
+    }
 
+    .carousel-dot {
+      width: 12px;
+      height: 12px;
+      background-color: #555;
+      border-radius: 50%;
+      margin: 0 6px;
+      cursor: pointer;
+    }
 
+    .carousel-dot.active {
+      background-color: #f2c14e;
     }
   </style>
 </head>
@@ -132,73 +138,33 @@
   <section class="hero" id="home">
     <h2>Book. Travel. Live.</h2>
   </section>
-<section class="section" id="videos">
-  <h2>Real Natural Expeditions</h2>
-  <div class="video-gallery">
-    
-    <!-- Video 1 -->
-    <div class="video-item">
-      <video autoplay muted loop playsinline>
-        <source src="ice_1.mp4" type="video/mp4">
-        Your browser does not support the video tag.
-      </video>
-    </div>
-
-    <!-- Video 2 -->
-    <div class="video-item">
-      <video autoplay muted loop playsinline>
-        <source src="ice_2.mp4" type="video/mp4">
-        Your browser does not support the video tag.
-      </video>
-    </div>
-
-    <!-- Video 3 -->
-    <div class="video-item">
-      <video autoplay muted loop playsinline>
-        <source src="ice_3.mp4" type="video/mp4">
-        Your browser does not support the video tag.
-      </video>
-    </div>
-<div class="video-item">
-      <video autoplay muted loop playsinline>
-        <source src="village.mp4" type="video/mp4">
-        Your browser does not support the video tag.
-      </video>
-    </div>
-    <!-- OPTIONAL: Add more videos as needed -->
-    <!--
-    <div class="video-item">
-      <video autoplay muted loop playsinline>
-        <source src="video4.mp4" type="video/mp4">
-        Your browser does not support the video tag.
-      </video>
-    </div>
-    -->
-
-  </div>
-</section>
 
   <section class="section" id="videos">
     <h2>Real Natural Expeditions</h2>
     <div class="video-gallery">
-      <div class="video-item">
-        <video autoplay muted loop playsinline>
-          <source src="video1.mp4" type="video/mp4">
-          Your browser does not support the video tag.
-        </video>
+      <div class="video-carousel" id="carousel">
+        <div class="video-item">
+          <video autoplay muted loop playsinline>
+            <source src="ice_1.mp4" type="video/mp4">
+          </video>
+        </div>
+        <div class="video-item">
+          <video autoplay muted loop playsinline>
+            <source src="ice_2.mp4" type="video/mp4">
+          </video>
+        </div>
+        <div class="video-item">
+          <video autoplay muted loop playsinline>
+            <source src="ice_3.mp4" type="video/mp4">
+          </video>
+        </div>
+        <div class="video-item">
+          <video autoplay muted loop playsinline>
+            <source src="village.mp4" type="video/mp4">
+          </video>
+        </div>
       </div>
-      <div class="video-item">
-        <video autoplay muted loop playsinline>
-          <source src="video2.mp4" type="video/mp4">
-          Your browser does not support the video tag.
-        </video>
-      </div>
-      <div class="video-item">
-        <video autoplay muted loop playsinline>
-          <source src="video3.mp4" type="video/mp4">
-          Your browser does not support the video tag.
-        </video>
-      </div>
+      <div class="carousel-dots" id="dots"></div>
     </div>
   </section>
 
@@ -214,5 +180,38 @@
   <footer class="footer">
     &copy; 2025 Where2Go. All rights reserved.
   </footer>
+
+  <script>
+    const carousel = document.getElementById('carousel');
+    const dotsContainer = document.getElementById('dots');
+    const videos = document.querySelectorAll('.video-item');
+
+    let currentIndex = 0;
+
+    function updateCarousel() {
+      const offset = -currentIndex * 100;
+      carousel.style.transform = `translateX(${offset}%)`;
+
+      document.querySelectorAll('.carousel-dot').forEach((dot, index) => {
+        dot.classList.toggle('active', index === currentIndex);
+      });
+    }
+
+    function createDots() {
+      for (let i = 0; i < videos.length; i++) {
+        const dot = document.createElement('div');
+        dot.classList.add('carousel-dot');
+        if (i === 0) dot.classList.add('active');
+        dot.addEventListener('click', () => {
+          currentIndex = i;
+          updateCarousel();
+        });
+        dotsContainer.appendChild(dot);
+      }
+    }
+
+    createDots();
+    updateCarousel();
+  </script>
 </body>
 </html>
