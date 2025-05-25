@@ -87,6 +87,9 @@
       overflow: hidden;
       border-radius: 15px;
       box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+      /* Added overflow-x: auto for wheel horizontal scroll */
+      overflow-x: auto;
+      -webkit-overflow-scrolling: touch;
     }
 
     .video-items {
@@ -215,16 +218,21 @@
         updateCarousel(index);
       });
     });
+
+    // Slow motion for last video
     const lastVideo = document.getElementById('last-video');
-    lastVideo.playbackRate = 0.9; // half speed, adjust 0.5 to slower/faster as you like
-    // Optional: Auto cycle every 5 seconds
-    /*
-    setInterval(() => {
-      let nextIndex = (currentIndex + 1) % dots.length;
-      updateCarousel(nextIndex);
-    }, 5000);
-    */
-   
+    lastVideo.playbackRate = 0.9; // Adjust speed as needed
+
+    // Horizontal scroll with wheel/touchpad
+    const gallery = document.querySelector('.video-gallery');
+    gallery.addEventListener('wheel', (e) => {
+      if (Math.abs(e.deltaX) > Math.abs(e.deltaY)) {
+        // horizontal scroll: prevent vertical scroll and scroll horizontally
+        e.preventDefault();
+        gallery.scrollLeft += e.deltaX;
+      }
+      // else vertical scroll happens naturally (do nothing)
+    }, { passive: false });
   </script>
 </body>
 </html>
