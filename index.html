@@ -206,6 +206,33 @@
     </div>
   </section>
 
+  <section class="section" id="book_a__trip">
+  <h2>Book a Trip</h2>
+  <form style="max-width: 700px; margin: 0 auto; display: flex; flex-direction: column; gap: 1.5rem;">
+    
+    <!-- Country Selection -->
+    <div style="display: flex; flex-direction: row; gap: 1rem; flex-wrap: wrap;">
+      <select id="country" name="country" style="flex: 1; padding: 0.75rem; border-radius: 8px; border: none; font-size: 1rem;">
+        <option value="">Select a Country</option>
+        <!-- Add full country list below -->
+      </select>
+
+      <!-- City input -->
+      <input type="text" id="city" name="city" placeholder="Enter City" style="flex: 1; padding: 0.75rem; border-radius: 8px; border: none; font-size: 1rem;" />
+
+      <!-- Date picker -->
+      <input type="date" id="date" name="date" style="flex: 1; padding: 0.75rem; border-radius: 8px; border: none; font-size: 1rem;" />
+    </div>
+
+    <!-- Submit Button -->
+    <div style="text-align: center;">
+      <button type="submit" style="padding: 0.75rem 2rem; font-size: 1.1rem; font-weight: bold; background-color: #f2c14e; color: #000; border: none; border-radius: 10px; cursor: pointer;">
+        Ask for Itinerary
+      </button>
+    </div>
+  </form>
+</section>
+
   <section class="section" id="contact">
     <h2>Contact Us</h2>
     <p style="text-align: center; font-size: 1.2rem;">
@@ -258,5 +285,37 @@
     const lastVideo = document.getElementById('last-video');
     if (lastVideo) lastVideo.playbackRate = 0.9;
   </script>
+  <script>
+  const countries = [
+    "Afghanistan", "Albania", "Algeria", "Andorra", "Angola", "Argentina", "Armenia", "Australia", "Austria", "Azerbaijan",
+    "Bahamas", "Bahrain", "Bangladesh", "Barbados", "Belarus", "Belgium", "Belize", "Benin", "Bhutan", "Bolivia",
+    "Bosnia and Herzegovina", "Botswana", "Brazil", "Brunei", "Bulgaria", "Burkina Faso", "Burundi", "Cabo Verde", "Cambodia", "Cameroon",
+    "Canada", "Central African Republic", "Chad", "Chile", "China", "Colombia", "Comoros", "Congo", "Costa Rica", "Croatia",
+    "Cuba", "Cyprus", "Czech Republic", "Denmark", "Djibouti", "Dominica", "Dominican Republic", "Ecuador", "Egypt", "El Salvador",
+    "Estonia", "Eswatini", "Ethiopia", "Fiji", "Finland", "France", "Gabon", "Gambia", "Georgia", "Germany",
+    "Ghana", "Greece", "Grenada", "Guatemala", "Guinea", "Guyana", "Haiti", "Honduras", "Hungary", "Iceland",
+    "India", "Indonesia", "Iran", "Iraq", "Ireland", "Israel", "Italy", "Jamaica", "Japan", "Jordan",
+    "Kazakhstan", "Kenya", "Kiribati", "Kuwait", "Kyrgyzstan", "Laos", "Latvia", "Lebanon", "Lesotho", "Liberia",
+    "Libya", "Liechtenstein", "Lithuania", "Luxembourg", "Madagascar", "Malawi", "Malaysia", "Maldives", "Mali", "Malta",
+    "Mauritania", "Mauritius", "Mexico", "Moldova", "Monaco", "Mongolia", "Montenegro", "Morocco", "Mozambique", "Myanmar",
+    "Namibia", "Nauru", "Nepal", "Netherlands", "New Zealand", "Nicaragua", "Niger", "Nigeria", "North Korea", "North Macedonia",
+    "Norway", "Oman", "Pakistan", "Palau", "Panama", "Papua New Guinea", "Paraguay", "Peru", "Philippines", "Poland",
+    "Portugal", "Qatar", "Romania", "Russia", "Rwanda", "Saint Kitts and Nevis", "Saint Lucia", "Samoa", "San Marino", "Saudi Arabia",
+    "Senegal", "Serbia", "Seychelles", "Sierra Leone", "Singapore", "Slovakia", "Slovenia", "Solomon Islands", "Somalia", "South Africa",
+    "South Korea", "Spain", "Sri Lanka", "Sudan", "Suriname", "Sweden", "Switzerland", "Syria", "Taiwan", "Tajikistan",
+    "Tanzania", "Thailand", "Timor-Leste", "Togo", "Tonga", "Trinidad and Tobago", "Tunisia", "Turkey", "Turkmenistan", "Tuvalu",
+    "Uganda", "Ukraine", "United Arab Emirates", "United Kingdom", "United States", "Uruguay", "Uzbekistan", "Vanuatu", "Vatican City", "Venezuela",
+    "Vietnam", "Yemen", "Zambia", "Zimbabwe"
+  ];
+
+  const countrySelect = document.getElementById('country');
+  countries.forEach(country => {
+    const option = document.createElement('option');
+    option.value = country;
+    option.textContent = country;
+    countrySelect.appendChild(option);
+  });
+</script>
+
 </body>
 </html>
