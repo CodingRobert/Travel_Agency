@@ -1,338 +1,187 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Where2Go</title>
-  <style>
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+    <style>
+      @import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap');
 
-    body, html {
-      font-family: 'Helvetica Neue', sans-serif;
-      height: 100%;
-      scroll-behavior: smooth;
-      background-color: #000;
-      color: #fff;
-    }
+      * {
+        font-family: 'Roboto', sans-serif;
+        box-sizing: border-box;
+      }
 
-    header {
-      background: rgba(0, 0, 0, 0.85);
-      padding: 1rem 2rem;
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      z-index: 1000;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-    }
+      body {
+        background-color: #f9f9f9;
+        margin: 0;
+        padding: 0;
+      }
 
-    header h1 {
-      font-size: 1.8rem;
-      letter-spacing: 2px;
-    }
+      header {
+        background-color: #ffffff;
+        padding: 1rem 2rem;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        border-bottom: 1px solid #eaeaea;
+      }
 
-    nav a {
-      color: white;
-      margin-left: 2rem;
-      text-decoration: none;
-      font-weight: bold;
-      transition: color 0.3s;
-    }
+      .nav-links a {
+        text-decoration: none;
+        color: #333;
+        margin: 0 1rem;
+        font-weight: 500;
+      }
 
-    nav a:hover {
-      color: #f2c14e;
-    }
+      .hero {
+        display: flex;
+        justify-content: space-between;
+        padding: 4rem 2rem;
+        background-color: #e6f7ff;
+      }
 
-    /* HERO SECTION */
-    .hero {
-      position: relative;
-      height: 100vh;
-      overflow: hidden;
-      padding-top: 5rem;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      text-align: center;
-      color: white;
-    }
+      .hero-text {
+        flex: 1;
+        padding-right: 2rem;
+      }
 
-    /* Background video fills hero */
-    .hero video {
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      z-index: 0;
-    }
+      .hero-image img {
+        max-width: 100%;
+        height: auto;
+        border-radius: 12px;
+      }
 
-    /* Text overlays video */
-    .hero h2 {
-      position: relative;
-      z-index: 1;
-      font-size: 3rem;
-       background: rgba(0, 0, 0, 0.5);
-      padding: 1rem 2rem;
-      border-radius: 10px;
-      max-width: 90%;
-      margin: 0 auto;
-    }
+      .section {
+        padding: 4rem 2rem;
+      }
 
-    .section {
-      padding: 6rem 2rem;
-      max-width: 1200px;
-      margin: 0 auto;
-    }
+      h1 {
+        font-size: 3rem;
+        margin-bottom: 1rem;
+      }
 
-    .section h2 {
-      font-size: 2.5rem;
-      text-align: center;
-      margin-bottom: 3rem;
-    }
+      p {
+        font-size: 1.2rem;
+        line-height: 1.6;
+      }
 
-    /* Carousel styles */
-    .video-gallery {
-      position: relative;
-      max-width: 900px;
-      margin: 0 auto;
-      overflow: hidden;  /* Hide scrollbar */
-      border-radius: 15px;
-      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
-    }
+      button {
+        padding: 0.75rem 1.5rem;
+        font-size: 1rem;
+        border: none;
+        border-radius: 8px;
+        background-color: #0077cc;
+        color: white;
+        cursor: pointer;
+      }
 
-    .video-items {
-      display: flex;
-      transition: transform 0.5s ease-in-out;
-      width: 100%;
-    }
+      #book_a__trip {
+        background-color: #fff;
+        border-radius: 12px;
+        padding: 2rem;
+        box-shadow: 0 8px 16px rgba(0, 0, 0, 0.05);
+        max-width: 800px;
+        margin: 2rem auto;
+      }
 
-    .video-item {
-      min-width: 100%;
-      flex-shrink: 0;
-      overflow: hidden;
-      border-radius: 15px;
-    }
+      label {
+        font-weight: bold;
+        margin-bottom: 0.5rem;
+      }
 
-    .video-item video {
-      width: 100%;
-      height: 400px;
-      object-fit: cover;
-      display: block;
-    }
+      input[type="date"],
+      input[type="text"],
+      select {
+        padding: 0.75rem;
+        border-radius: 8px;
+        border: 1px solid #ccc;
+        font-size: 1rem;
+        width: 100%;
+      }
 
-    /* Dots navigation */
-    .dots {
-      display: flex;
-      justify-content: center;
-      margin-top: 15px;
-      gap: 12px;
-    }
-
-    .dot {
-      width: 12px;
-      height: 12px;
-      border-radius: 50%;
-      background-color: #555;
-      cursor: pointer;
-      transition: background-color 0.3s;
-    }
-
-    .dot.active {
-      background-color: #f2c14e;
-    }
-  </style>
-</head>
-<body>
-  <header>
-    <h1>Where2Go</h1>
-    <nav>
-      <a href="#home">Home</a>
-      <a href="#videos">Experiences</a>
-      <a href="#book_a__trip">Book a Trip</a>
-      <a href="#contact">Contact</a>
-    </nav>
-  </header>
-
-  <section class="hero" id="home">
-    <video autoplay muted loop playsinline>
-      <source src="main_video.mp4" type="video/mp4" />
-      Your browser does not support the video tag.
-    </video>
-    <h2>Book. Travel. Live.</h2>
-  </section>
-
-  <section class="section" id="videos">
-    <h2>Real Natural Expeditions</h2>
-    <div class="video-gallery">
-      <div class="video-items">
-        <div class="video-item">
-          <video autoplay muted loop playsinline>
-            <source src="ice_1.mp4" type="video/mp4" />
-            Your browser does not support the video tag.
-          </video>
-        </div>
-        <div class="video-item">
-          <video autoplay muted loop playsinline>
-            <source src="ice_2.mp4" type="video/mp4" />
-            Your browser does not support the video tag.
-          </video>
-        </div>
-        <div class="video-item">
-          <video autoplay muted loop playsinline>
-            <source src="ice_3.mp4" type="video/mp4" />
-            Your browser does not support the video tag.
-          </video>
-        </div>        
-        <div class="video-item">
-          <video id="last-video" autoplay muted loop playsinline>
-            <source src="village.mp4" type="video/mp4" />
-            Your browser does not support the video tag.
-          </video>
-        </div>
-      </div>
-    </div>
-    <div class="dots">
-      <div class="dot active" data-index="0"></div>
-      <div class="dot" data-index="1"></div>
-      <div class="dot" data-index="2"></div>
-      <div class="dot" data-index="3"></div>
-    </div>
-  </section>
-
-  <section class="section" id="book_a__trip">
-  <h2>Book a Trip</h2>
-  <form style="max-width: 700px; margin: 0 auto; display: flex; flex-direction: column; gap: 1.5rem;">
-  
-  <!-- Input Row -->
-  <div style="display: flex; flex-direction: row; gap: 1rem; flex-wrap: wrap;">
-    
-    <!-- Country Selection -->
-    <select id="country" name="country" style="flex: 1; padding: 0.75rem; border-radius: 8px; border: none; font-size: 1rem;">
-      <option value="">Select a Country</option>
-    </select>
-
-    <!-- City input -->
-    <input type="text" id="city" name="city" placeholder="Enter City" style="flex: 1; padding: 0.75rem; border-radius: 8px; border: none; font-size: 1rem;" />
-
-    <!-- Dates Wrapper -->
-    <div style="display: flex; flex: 2; gap: 1rem;">
-      <!-- Departure Date -->
-      <div style="flex: 1; display: flex; flex-direction: column;">
-        <label for="departure-date" style="margin-bottom: 0.25rem;">Departure Date</label>
-        <input type="date" id="departure-date" name="departure-date" style="padding: 0.75rem; border-radius: 8px; border: none; font-size: 1rem;" />
-      </div>
-
-      <!-- Return Date -->
-      <div style="flex: 1; display: flex; flex-direction: column;">
-        <label for="return-date" style="margin-bottom: 0.25rem;">Return Date</label>
-        <input type="date" id="return-date" name="return-date" style="padding: 0.75rem; border-radius: 8px; border: none; font-size: 1rem;" />
-      </div>
-    </div>
-
-  </div>
-
-  <!-- Submit Button -->
-  <div style="text-align: center;">
-    <button type="submit" style="padding: 0.75rem 2rem; font-size: 1.1rem; font-weight: bold; background-color: #f2c14e; color: #000; border: none; border-radius: 10px; cursor: pointer;">
-      Ask for Itinerary
-    </button>
-  </div>
-</form>
-
-
-    
-</section>
-
-  <section class="section" id="contact">
-    <h2>Contact Us</h2>
-    <p style="text-align: center; font-size: 1.2rem;">
-      📍 123 Modern Avenue, CityName<br />
-      📞 +123 456 7890<br />
-      📧 info@Where2Go.com
-    </p>
-  </section>
-
-  <footer class="footer">
-    &copy; 2025 Where2Go. All rights reserved.
-  </footer>
-
-  <script>
-    const videoItems = document.querySelector('.video-items');
-    const dots = document.querySelectorAll('.dot');
-    const videos = document.querySelectorAll('.video-item video');
-    let currentIndex = 0;
-
-    function updateCarousel(index) {
-      const offset = index * -100;
-      videoItems.style.transform = `translateX(${offset}%)`;
-
-      dots.forEach(dot => dot.classList.remove('active'));
-      dots[index].classList.add('active');
-
-      videos.forEach((video, i) => {
-        if (i === index) {
-          video.play();
-        } else {
-          video.pause();
-          video.currentTime = 0;
+      @media (max-width: 768px) {
+        .hero {
+          flex-direction: column;
         }
+
+        .hero-text {
+          padding-right: 0;
+          margin-bottom: 2rem;
+        }
+      }
+    </style>
+  </head>
+
+  <body>
+    <header>
+      <div class="logo">TravelMate</div>
+      <nav class="nav-links">
+        <a href="#">Home</a>
+        <a href="#">Destinations</a>
+        <a href="#">Contact</a>
+      </nav>
+    </header>
+
+    <section class="hero">
+      <div class="hero-text">
+        <h1>Explore the World with Us</h1>
+        <p>Find your perfect vacation and travel with comfort and style. Let us plan your dream getaway!</p>
+        <button>Get Started</button>
+      </div>
+      <div class="hero-image">
+        <img src="https://images.unsplash.com/photo-1507525428034-b723cf961d3e" alt="Travel" />
+      </div>
+    </section>
+
+    <section id="book_a__trip">
+      <h2>Book Your Trip</h2>
+
+      <!-- Dates Wrapper -->
+      <div style="display: flex; flex: 2; gap: 1rem;">
+        <!-- Departure Date -->
+        <div style="flex: 1; display: flex; flex-direction: column;">
+          <label for="departure-date" style="margin-bottom: 0.25rem;">Departure Date</label>
+          <input type="date" id="departure-date" name="departure-date" style="padding: 0.75rem; border-radius: 8px; border: none; font-size: 1rem;" />
+        </div>
+
+        <!-- Return Date -->
+        <div style="flex: 1; display: flex; flex-direction: column;">
+          <label for="return-date" style="margin-bottom: 0.25rem;">Return Date</label>
+          <input type="date" id="return-date" name="return-date" style="padding: 0.75rem; border-radius: 8px; border: none; font-size: 1rem;" />
+        </div>
+      </div>
+
+      <!-- Alternative Flatpickr Date Range -->
+      <div style="flex: 1; display: flex; flex-direction: column;">
+        <label for="date-range" style="margin-top: 1rem; margin-bottom: 0.25rem;">Or select date range:</label>
+        <input id="date-range" placeholder="Select your trip dates" style="padding: 0.75rem; border-radius: 8px; border: none; font-size: 1rem;" />
+      </div>
+    </section>
+
+    <!-- JS Libraries -->
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+    <script>
+      // Sync return date to be after departure
+      const departureInput = document.getElementById('departure-date');
+      const returnInput = document.getElementById('return-date');
+
+      if (departureInput && returnInput) {
+        departureInput.addEventListener('change', () => {
+          const departureDate = departureInput.value;
+          if (departureDate) {
+            returnInput.min = departureDate;
+            returnInput.focus();
+          }
+        });
+      }
+
+      // Flatpickr range picker
+      flatpickr("#date-range", {
+        mode: "range",
+        dateFormat: "Y-m-d"
       });
-
-      currentIndex = index;
-    }
-
-    dots.forEach(dot => {
-      dot.addEventListener('click', () => {
-        const index = parseInt(dot.getAttribute('data-index'));
-        updateCarousel(index);
-      });
-    });
-
-    // Initialize carousel
-    updateCarousel(0);
-
-    // Slow motion for last video
-    const lastVideo = document.getElementById('last-video');
-    if (lastVideo) lastVideo.playbackRate = 0.9;
-  </script>
-  <script>
-  const countries = [
-    "Afghanistan", "Albania", "Algeria", "Andorra", "Angola", "Argentina", "Armenia", "Australia", "Austria", "Azerbaijan",
-    "Bahamas", "Bahrain", "Bangladesh", "Barbados", "Belarus", "Belgium", "Belize", "Benin", "Bhutan", "Bolivia",
-    "Bosnia and Herzegovina", "Botswana", "Brazil", "Brunei", "Bulgaria", "Burkina Faso", "Burundi", "Cabo Verde", "Cambodia", "Cameroon",
-    "Canada", "Central African Republic", "Chad", "Chile", "China", "Colombia", "Comoros", "Congo", "Costa Rica", "Croatia",
-    "Cuba", "Cyprus", "Czech Republic", "Denmark", "Djibouti", "Dominica", "Dominican Republic", "Ecuador", "Egypt", "El Salvador",
-    "Estonia", "Eswatini", "Ethiopia", "Fiji", "Finland", "France", "Gabon", "Gambia", "Georgia", "Germany",
-    "Ghana", "Greece", "Grenada", "Guatemala", "Guinea", "Guyana", "Haiti", "Honduras", "Hungary", "Iceland",
-    "India", "Indonesia", "Iran", "Iraq", "Ireland", "Israel", "Italy", "Jamaica", "Japan", "Jordan",
-    "Kazakhstan", "Kenya", "Kiribati", "Kuwait", "Kyrgyzstan", "Laos", "Latvia", "Lebanon", "Lesotho", "Liberia",
-    "Libya", "Liechtenstein", "Lithuania", "Luxembourg", "Madagascar", "Malawi", "Malaysia", "Maldives", "Mali", "Malta",
-    "Mauritania", "Mauritius", "Mexico", "Moldova", "Monaco", "Mongolia", "Montenegro", "Morocco", "Mozambique", "Myanmar",
-    "Namibia", "Nauru", "Nepal", "Netherlands", "New Zealand", "Nicaragua", "Niger", "Nigeria", "North Korea", "North Macedonia",
-    "Norway", "Oman", "Pakistan", "Palau", "Panama", "Papua New Guinea", "Paraguay", "Peru", "Philippines", "Poland",
-    "Portugal", "Qatar", "Romania", "Russia", "Rwanda", "Saint Kitts and Nevis", "Saint Lucia", "Samoa", "San Marino", "Saudi Arabia",
-    "Senegal", "Serbia", "Seychelles", "Sierra Leone", "Singapore", "Slovakia", "Slovenia", "Solomon Islands", "Somalia", "South Africa",
-    "South Korea", "Spain", "Sri Lanka", "Sudan", "Suriname", "Sweden", "Switzerland", "Syria", "Taiwan", "Tajikistan",
-    "Tanzania", "Thailand", "Timor-Leste", "Togo", "Tonga", "Trinidad and Tobago", "Tunisia", "Turkey", "Turkmenistan", "Tuvalu",
-    "Uganda", "Ukraine", "United Arab Emirates", "United Kingdom", "United States", "Uruguay", "Uzbekistan", "Vanuatu", "Vatican City", "Venezuela",
-    "Vietnam", "Yemen", "Zambia", "Zimbabwe"
-  ];
-
-  const countrySelect = document.getElementById('country');
-  countries.forEach(country => {
-    const option = document.createElement('option');
-    option.value = country;
-    option.textContent = country;
-    countrySelect.appendChild(option);
-  });
-</script>
-
-</body>
+    </script>
+  </body>
 </html>
