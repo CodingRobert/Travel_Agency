@@ -210,28 +210,30 @@
   <h2>Book a Trip</h2>
   <form style="max-width: 700px; margin: 0 auto; display: flex; flex-direction: column; gap: 1.5rem;">
   
-  <!-- Country, City, Dates -->
+  <!-- Input Row -->
   <div style="display: flex; flex-direction: row; gap: 1rem; flex-wrap: wrap;">
     
     <!-- Country Selection -->
     <select id="country" name="country" style="flex: 1; padding: 0.75rem; border-radius: 8px; border: none; font-size: 1rem;">
       <option value="">Select a Country</option>
-      <!-- Country list is filled by JS -->
     </select>
 
     <!-- City input -->
     <input type="text" id="city" name="city" placeholder="Enter City" style="flex: 1; padding: 0.75rem; border-radius: 8px; border: none; font-size: 1rem;" />
 
-    <!-- Departure Date -->
-    <div style="display: flex; flex-direction: column; flex: 1;">
-      <label for="departure-date" style="margin-bottom: 0.25rem;">Departure Date</label>
-      <input type="date" id="departure-date" name="departure-date" style="padding: 0.75rem; border-radius: 8px; border: none; font-size: 1rem;" />
-    </div>
+    <!-- Dates Wrapper -->
+    <div style="display: flex; flex: 2; gap: 1rem;">
+      <!-- Departure Date -->
+      <div style="flex: 1; display: flex; flex-direction: column;">
+        <label for="departure-date" style="margin-bottom: 0.25rem;">Departure Date</label>
+        <input type="date" id="departure-date" name="departure-date" style="padding: 0.75rem; border-radius: 8px; border: none; font-size: 1rem;" />
+      </div>
 
-    <!-- Return Date -->
-    <div style="display: flex; flex-direction: column; flex: 1;">
-      <label for="return-date" style="margin-bottom: 0.25rem;">Return Date</label>
-      <input type="date" id="return-date" name="return-date" style="padding: 0.75rem; border-radius: 8px; border: none; font-size: 1rem;" />
+      <!-- Return Date -->
+      <div style="flex: 1; display: flex; flex-direction: column;">
+        <label for="return-date" style="margin-bottom: 0.25rem;">Return Date</label>
+        <input type="date" id="return-date" name="return-date" style="padding: 0.75rem; border-radius: 8px; border: none; font-size: 1rem;" />
+      </div>
     </div>
 
   </div>
@@ -243,6 +245,7 @@
     </button>
   </div>
 </form>
+
 
     
 </section>
